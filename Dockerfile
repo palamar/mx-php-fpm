@@ -1,4 +1,4 @@
-FROM php:7.4-fpm-alpine 
+FROM php:7.3-fpm-alpine 
 RUN apk update --no-cache \
     apk upgrade \
     && apk add --no-cache \
@@ -37,7 +37,7 @@ RUN apk update --no-cache \
     && docker-php-ext-configure intl --enable-intl \
     && docker-php-ext-install intl \
     && docker-php-ext-configure bcmath --enable-bcmath \
-    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-configure gettext \
     && docker-php-ext-configure hash \
     && docker-php-ext-configure pcntl --enable-pcntl \
