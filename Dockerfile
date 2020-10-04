@@ -61,8 +61,16 @@ RUN apk update --no-cache \
         curl \
         gd \
         opcache \ 
-    && pecl install redis \
-    && docker-php-ext-enable redis \
+    && pecl install redis \ 
+    && pecl install xdebug \
+    && docker-php-ext-enable redis xdebug \
+        iconv \
+        curl \
+        gd \
+        opcache \ 
+    && pecl install redis \ 
+    && pecl install xdebug \
+    && docker-php-ext-enable redis xdebug \
     && docker-php-source delete \
     && apk del --no-cache .build-deps \ 
     && rm -rf /tmp/* /var/cache/* /var/www/* /usr/src/php.tar.xz /usr/local/bin/phpdbg
