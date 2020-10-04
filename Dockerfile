@@ -1,23 +1,5 @@
-FROM php:7.3-fpm-alpine 
-RUN apk update --no-cache \
-    apk upgrade \
-    && apk add --no-cache \
-        readline \ 
-        icu \
-        libxml2 \ 
-        libxslt \
-        zlib \
-        libzip \
-        libbz2 \
-        libcurl \
-        freetype \ 
-        libjpeg-turbo \  
-        libpng \
-        libintl \
-        gettext \
-        libltdl \
-        oniguruma \
-    && apk add --no-cache --virtual .build-deps \
+FROM palamar/mx-php-fpm:7.2
+RUN apk add --no-cache --virtual .build-deps \
         g++ \
         readline-dev \ 
         autoconf \
@@ -34,35 +16,8 @@ RUN apk update --no-cache \
         make \
         gettext-dev \
         oniguruma-dev \
-    && docker-php-ext-configure intl --enable-intl \
-    && docker-php-ext-install intl \
-    && docker-php-ext-configure bcmath --enable-bcmath \
-    && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
-    && docker-php-ext-configure gettext \
-    && docker-php-ext-configure hash \
-    && docker-php-ext-configure pcntl --enable-pcntl \
-    && docker-php-ext-configure mbstring --enable-mbstring \
-    && docker-php-ext-install \
-        bcmath \
-        sockets \
-        mbstring \
-        simplexml \
-        xml \
-        xsl \
-        soap \
-        json \
-        dom \
-        zip \
-        pdo \
-        pdo_mysql \
-        gettext \
-        bz2 \
-        iconv \
-        curl \
-        gd \
-        opcache \ 
-    && pecl install redis \
-    && docker-php-ext-enable redis \
+    && pecl install xdebug \
+    && docker-php-ext-enable xdebug \ 
     && docker-php-source delete \
     && apk del --no-cache .build-deps \ 
     && rm -rf /tmp/* /var/cache/* /var/www/* /usr/src/php.tar.xz /usr/local/bin/phpdbg
