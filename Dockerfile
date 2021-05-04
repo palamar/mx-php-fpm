@@ -1,4 +1,4 @@
-FROM php:7.4-fpm-alpine 
+FROM php:8.0-fpm-alpine 
 RUN apk update --no-cache \
     apk upgrade \
     && apk add --no-cache \
@@ -17,10 +17,10 @@ RUN apk update --no-cache \
         gettext \
         libltdl \
         oniguruma \
-    && apk add --no-cache --virtual .build-deps \
+&& apk add --no-cache --virtual .build-deps \
         g++ \
         readline-dev \ 
-        autoconf \
+        autoconf \ 
         icu-dev \
         libxml2-dev \ 
         libxslt-dev \
@@ -49,19 +49,17 @@ RUN apk update --no-cache \
         simplexml \
         xml \
         xsl \
-        soap \
-        json \
-        dom \
         zip \
-        pdo \
         pdo_mysql \
         gettext \
-        bz2 \
+        bz2 \ 
         iconv \
-        curl \
         gd \
-        opcache \ 
+        opcache \
+	soap \
     && pecl install redis \
+    && pecl install xdebug \
+    && docker-php-ext-enable redis xdebug \
     && docker-php-ext-enable redis \
     && docker-php-source delete \
     && apk del --no-cache .build-deps \ 
