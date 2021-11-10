@@ -17,6 +17,7 @@ RUN apk update --no-cache \
         gettext \
         libltdl \
         oniguruma \
+	libexif \
     && apk add --no-cache --virtual .build-deps \
         g++ \
         readline-dev \ 
@@ -51,7 +52,8 @@ RUN apk update --no-cache \
         xsl \
         soap \
         json \
-        dom \
+        dom 
+RUN docker-php-ext-install \
         zip \
         pdo \
         pdo_mysql \
@@ -60,18 +62,18 @@ RUN apk update --no-cache \
         iconv \
         curl \
         gd \
-        opcache \ 
-    && pecl install redis \ 
-    && pecl install xdebug \
-    && docker-php-ext-enable redis xdebug \
+        opcache  
+RUN pecl install redis \ 
+    && pecl install xdebug 
+RUN docker-php-ext-enable \
         iconv \
         curl \
         gd \
-        opcache \ 
-    && pecl install redis \ 
-    && pecl install xdebug \
-    && docker-php-ext-enable redis xdebug \
-    && docker-php-source delete \
+        opcache \
+    && docker-php-ext-enable redis xdebug
+RUN docker-php-ext-configure exif --enable-exif
+RUN docker-php-ext-install exif
+RUN docker-php-source delete \
     && apk del --no-cache .build-deps \ 
     && rm -rf /tmp/* /var/cache/* /var/www/* /usr/src/php.tar.xz /usr/local/bin/phpdbg
 EXPOSE 9000 
