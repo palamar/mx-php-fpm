@@ -32,6 +32,7 @@ RUN apk update --no-cache \
         freetype-dev \ 
         libjpeg-turbo-dev \  
         libpng-dev \
+	jpeg-dev \
         make \
         gettext-dev \
         oniguruma-dev \
