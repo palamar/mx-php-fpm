@@ -1,17 +1,17 @@
-FROM php:7.4-fpm-alpine 
+FROM php:8.0-fpm-alpine
 RUN apk update --no-cache \
     apk upgrade \
     && apk add --no-cache \
-        readline \ 
+        readline \
         icu \
-        libxml2 \ 
+        libxml2 \
         libxslt \
         zlib \
         libzip \
         libbz2 \
         libcurl \
-        freetype \ 
-        libjpeg-turbo \  
+        freetype \
+        libjpeg-turbo \
         libpng \
         libintl \
         gettext \
@@ -19,17 +19,17 @@ RUN apk update --no-cache \
         oniguruma \
     && apk add --no-cache --virtual .build-deps \
         g++ \
-        readline-dev \ 
+        readline-dev \
         autoconf \
         icu-dev \
-        libxml2-dev \ 
+        libxml2-dev \
         libxslt-dev \
         zlib-dev \
         libzip-dev \
         bzip2-dev \
         curl-dev \
-        freetype-dev \ 
-        libjpeg-turbo-dev \  
+        freetype-dev \
+        libjpeg-turbo-dev \
         libpng-dev \
         make \
         gettext-dev \
@@ -45,26 +45,26 @@ RUN apk update --no-cache \
     && docker-php-ext-install \
         bcmath \
         sockets \
-        mbstring \
+	mbstring \
         simplexml \
         xml \
         xsl \
         soap \
-        json \
-        dom \
-        zip \
+        dom
+RUN docker-php-ext-install \
+        zip
+RUN docker-php-ext-install  \
         pdo \
         pdo_mysql \
         gettext \
         bz2 \
-        iconv \
         curl \
         gd \
-        opcache \ 
+        opcache \
     && pecl install redis \
     && docker-php-ext-enable redis \
     && docker-php-source delete \
-    && apk del --no-cache .build-deps \ 
+    && apk del --no-cache .build-deps \
     && rm -rf /tmp/* /var/cache/* /var/www/* /usr/src/php.tar.xz /usr/local/bin/phpdbg
-EXPOSE 9000 
- 
+EXPOSE 9000
+
