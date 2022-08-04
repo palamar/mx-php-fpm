@@ -57,7 +57,6 @@ RUN apk update --no-cache \
         pdo_mysql \
         gettext \
         bz2 \
-        iconv \
         curl \
         gd \
         opcache \ 
