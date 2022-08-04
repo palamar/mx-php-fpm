@@ -60,14 +60,12 @@ RUN docker-php-ext-install \
         pdo_mysql \
         gettext \
         bz2 \
-        iconv \
         curl \
         gd \
         opcache  
 RUN pecl install redis \ 
     && pecl install xdebug 
 RUN docker-php-ext-enable \
-        iconv \
         curl \
         gd \
         opcache \
